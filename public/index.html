@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>炎峰國小 閱讀大補帖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6efe1;
+  --card:#fffaf0;
+  --ink:#2e2a24;
+  --ink-soft:#5f574b;
+  --line:#d9ccb2;
+  --gold:#b98a2e;
+  --c1:#8a3b3b;  /* 酒紅 */
+  --c2:#4f7a3a;  /* 瓜綠 */
+  --c3:#2f4a6b;  /* 墨藍 */
+  --c4:#b0612a;  /* 赭橘 */
+  --c5:#2d7a74;  /* 青綠 */
+  --c6:#a14d6e;  /* 胭脂 */
+  --c7:#6b5aa0;  /* 紫藤 */
+  --c8:#7a6a2e;  /* 橄欖 */
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);font-family:var(--sans);line-height:1.75;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(185,138,46,.08), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(47,74,107,.06), transparent 45%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,.012) 0 1px, transparent 1px 3px),
+    var(--paper);
+}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+/* ---------- 封面 ---------- */
+header.cover{padding:60px 0 44px;text-align:center;border-bottom:1px solid var(--line)}
+.cover .school{font-family:var(--serif);letter-spacing:.5em;font-size:15px;color:var(--ink-soft);margin:0 0 10px;padding-left:.5em}
+.cover h1{font-family:var(--serif);font-weight:900;margin:0;font-size:clamp(40px,8vw,76px);letter-spacing:.12em;line-height:1.2}
+.cover h1 .small{display:block;font-size:.38em;letter-spacing:.3em;font-weight:600;color:var(--gold);margin-bottom:6px}
+.cover .motto{font-family:var(--serif);font-size:clamp(16px,2.4vw,20px);color:var(--ink-soft);margin:18px 0 0}
+.ornament{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px auto 0;color:var(--gold)}
+.ornament::before,.ornament::after{content:"";height:1px;width:80px;background:linear-gradient(90deg,transparent,var(--gold))}
+.ornament::after{transform:scaleX(-1)}
+.book-icon{width:34px;height:34px}
+
+/* ---------- 篩選列 ---------- */
+.filter{position:sticky;top:0;z-index:5;background:rgba(246,239,225,.93);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.filter .wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px}
+.filter .label{font-family:var(--serif);font-weight:600;margin-right:4px}
+.chip{font:inherit;font-size:15px;cursor:pointer;border:1px solid var(--line);background:var(--card);padding:5px 15px;border-radius:999px;color:var(--ink);transition:.15s}
+.chip:hover{border-color:var(--ink-soft)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.sep{width:1px;height:22px;background:var(--line);margin:0 6px}
+
+/* ---------- 區塊標題 ---------- */
+section{padding:48px 0 8px}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.sec-head .no{font-family:var(--serif);font-size:14px;color:var(--gold);letter-spacing:.2em}
+.sec-head h2{font-family:var(--serif);font-size:28px;margin:0;letter-spacing:.08em}
+.sec-head p{margin:0;color:var(--ink-soft);font-size:15px}
+
+/* ---------- 書本卡片 ---------- */
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:24px}
+.book{
+  position:relative;background:var(--card);border:1px solid var(--line);border-radius:4px 10px 10px 4px;
+  padding:24px 22px 20px 38px;display:flex;flex-direction:column;
+  box-shadow:0 1px 0 var(--line), 0 12px 28px -18px rgba(60,40,10,.45);
+}
+.book[hidden]{display:none}
+.book::before{content:"";position:absolute;left:0;top:0;bottom:0;width:17px;border-radius:4px 0 0 4px;background:var(--c);
+  box-shadow:inset -3px 0 0 rgba(255,255,255,.25), inset 3px 0 0 rgba(0,0,0,.12)}
+.book .ribbon{position:absolute;top:-1px;right:24px;width:20px;height:40px;background:var(--c);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);opacity:.9}
+.book .num{font-family:var(--serif);font-size:13px;color:var(--c);font-weight:700;letter-spacing:.15em}
+.book h3{font-family:var(--serif);font-size:23px;margin:2px 0 2px;letter-spacing:.04em;padding-right:30px;line-height:1.4}
+.book .org{font-size:13px;color:var(--ink-soft);margin:0 0 12px}
+.book .lead{font-family:var(--serif);font-size:16px;margin:0 0 14px;padding-left:12px;border-left:3px solid var(--c)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.tag{font-size:12.5px;padding:1px 9px;border-radius:999px;border:1px solid var(--c);color:var(--c)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:0 0 12px;font-size:14px}
+.facts dt{color:var(--c);font-weight:700;white-space:nowrap}
+.facts dd{margin:0}
+.tip{font-size:14px;margin:auto 0 12px;padding:9px 12px;background:var(--paper);border-radius:6px}
+.tip b{color:var(--c)}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:700;font-size:14.5px;padding:8px 17px;border-radius:999px;background:var(--c);color:#fff}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--c);border:1px solid var(--c)}
+
+.k1{--c:var(--c1)} .k2{--c:var(--c2)} .k3{--c:var(--c3)} .k4{--c:var(--c4)}
+.k5{--c:var(--c5)} .k6{--c:var(--c6)} .k7{--c:var(--c7)} .k8{--c:var(--c8)}
+
+.empty{display:none;text-align:center;color:var(--ink-soft);padding:30px 0}
+
+/* ---------- 年級書單 ---------- */
+.grades{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.grade{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 20px 16px;position:relative;overflow:hidden}
+.grade::after{content:attr(data-big);position:absolute;right:-6px;bottom:-26px;font-family:var(--serif);font-weight:900;font-size:96px;color:var(--c);opacity:.08;line-height:1}
+.grade h4{font-family:var(--serif);font-size:19px;margin:0 0 4px;color:var(--c)}
+.grade p{margin:0 0 10px;font-size:14px;color:var(--ink-soft)}
+.grade ul{margin:0;padding:0;list-style:none}
+.grade li{padding:5px 0;border-top:1px dashed var(--line);font-size:14.5px}
+.grade li a{text-decoration:none;font-weight:700}
+.grade li a:hover{text-decoration:underline}
+.grade li span{color:var(--ink-soft);font-size:13.5px}
+
+/* ---------- 登入小幫手 ---------- */
+.notebook{background:repeating-linear-gradient(transparent 0 31px, rgba(47,74,107,.13) 31px 32px),var(--card);
+  border:1px solid var(--line);border-radius:10px;padding:26px 28px 22px 64px;position:relative}
+.notebook::before{content:"";position:absolute;left:44px;top:0;bottom:0;width:2px;background:rgba(138,59,59,.35)}
+.notebook h3{font-family:var(--serif);margin:0 0 6px;font-size:21px}
+.notebook ol{margin:0;padding-left:20px;line-height:32px}
+.notebook .note{margin-top:10px;font-size:14px;color:var(--ink-soft);line-height:1.7}
+
+.quote{margin:56px auto 0;max-width:720px;text-align:center;font-family:var(--serif);font-size:clamp(19px,3vw,24px);line-height:1.8}
+.quote small{display:block;font-size:14px;color:var(--ink-soft);margin-top:8px;letter-spacing:.2em}
+
+footer{margin-top:60px;padding:28px 0 40px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-soft);text-align:center}
+footer p{margin:4px 0}
+
+@media (max-width:560px){
+  .book{padding-left:32px}
+  .notebook{padding-left:44px}
+  .notebook::before{left:28px}
+  .sep{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <p class="school">南投縣草屯鎮　炎峰國民小學</p>
+    <h1><span class="small">BOOK · READ · GROW</span>閱讀大補帖</h1>
+    <p class="motto">八個線上閱讀好幫手，陪孩子讀繪本、讀報、練素養</p>
+    <div class="ornament" aria-hidden="true">
+      <svg class="book-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round">
+        <path d="M24 12c-5-3.5-12-4-18-3v28c6-1 13-.5 18 3 5-3.5 12-4 18-3V9c-6-1-13-.5-18 3z"/><path d="M24 12v28"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<nav class="filter" aria-label="篩選網站">
+  <div class="wrap">
+    <span class="label">我想找：</span>
+    <button class="chip" data-f="all" aria-pressed="true">全部</button>
+    <button class="chip" data-f="book" aria-pressed="false">📚 繪本故事</button>
+    <button class="chip" data-f="quiz" aria-pressed="false">✅ 閱讀認證・測驗</button>
+    <button class="chip" data-f="news" aria-pressed="false">📰 讀報新知</button>
+    <button class="chip" data-f="game" aria-pressed="false">🎮 遊戲闖關</button>
+    <span class="sep" aria-hidden="true"></span>
+    <button class="chip" data-f="teacher" aria-pressed="false">✏️ 老師資源</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="sites">
+    <div class="sec-head">
+      <span class="no">第一章</span>
+      <h2>八本「線上好書」</h2>
+      <p>點上方分類，快速找到需要的網站</p>
+    </div>
+
+    <div class="shelf" id="shelf">
+
+      <!-- 1 數位讀寫網 -->
+      <article class="book k1" data-f="quiz teacher">
+        <span class="ribbon" aria-hidden="true"></span>
+        <div class="num">01</div>
+        <h3>數位讀寫網</h3>
+        <p class="org">財團法人台灣閱讀文化基金會（就在我們草屯）</p>
+        <p class="lead">閱讀理解文本與線上測驗，一步步練習數位時代的讀和寫。</p>
+        <div class="tags"><span class="tag">閱讀理解</span><span class="tag">線上測驗</span><span class="tag">建議三年級以上</span></div>
+        <dl class="facts">
+          <dt>登入</dt><dd>老師建立班級，學生註冊後加入</dd>
+          <dt>裝置</dt><dd>電腦或平板，建議用 Chrome</dd>
+        </dl>
+        <p class="tip"><b>小提醒：</b>四到九年級可參加「柯華葳線上數位閱讀專題探究競賽」，通常每年一到三月報名。</p>
+        <div class="btns"><a class="btn" href="https://eliteracy.twnread.org.tw/" target="_blank" rel="noopener">前往網站 →</a></div>
+      </article>
+
+      <!-- 2 瓜瓜漂流 -->
+      <article class="book k2" data-f="quiz game">
+        <span class="ribbon" aria-hidden="true"></span>
+        <div class="num">02</div>
+        <h3>教育生活家・瓜瓜漂流島</h3>
+        <p class="org">瓜瓜漂流 親子網</p>
+        <p class="lead">讀完紙本書上網認證，還有遊戲化闖關，累積自己的閱讀成績。</p>
+        <div class="tags"><span class="tag">閱讀認證</span><span class="tag">闖關遊戲</span><span class="tag">各年級</span></div>
+        <dl class="facts">
+          <dt>登入</dt><dd>家長註冊後可替孩子建帳號；學校開通時由老師建立</dd>
+          <dt>裝置</dt><dd>電腦、平板、手機</dd>
+        </dl>
+        <p class="tip"><b>家長看這裡：</b>註冊後到「個人功能」按「我是家長」，就能幫孩子建立學生帳號。</p>
+        <div class="btns">
+          <a class="btn" href="https://www.parents.com.tw/elifer" target="_blank" rel="noopener">前往網站 →</a>
+          <a class="btn ghost" href="https://www.parents.com.tw/qAndA" target="_blank" rel="noopener">註冊問答</a>
+        </div>
+      </article>
+
+      <!-- 3 雲閱讀 -->
+      <article class="book k3" data-f="news">
+        <span class="ribbon" aria-hidden="true"></span>
+        <div class="num">03</div>
+        <h3>國語日報 雲閱讀</h3>
+        <p class="org">MDNeReading｜財團法人國語日報社</p>
+        <p class="lead">文章都有注音，時事、科普一次看，還能用關鍵字搜尋。</p>
+        <div class="tags"><span class="tag">有注音</span><span class="tag">時事科普</span><span class="tag">一到六年級</span></div>
+        <dl class="facts">
+          <dt>在學校</dt><dd>用校內網路不用帳密，直接進入</dd>
+          <dt>在家裡</dt><dd>用縣市帳號登入</dd>
+          <dt>裝置</dt><dd>手機、平板、電腦都可以</dd>
+        </dl>
+        <p class="tip"><b>剪報作業：</b>在家用縣市帳號登入，直接搜尋主題，不用再到處找報紙。</p>
+        <div class="btns">
+          <a class="btn" href="https://mdnereading.mdnkids.com/" target="_blank" rel="noopener">前往網站 →</a>
+          <a class="btn ghost" href="https://nie.mdnkids.com/" target="_blank" rel="noopener">讀報教育資源</a>
+        </div>
+      </article>
+
+      <!-- 4 PaGamO -->
+      <article class="book k4" data-f="game quiz">
+        <span class="ribbon" aria-hidden="true"></span>
+        <div class="num">04</div>
+        <h3>PaGamO 素養品學堂</h3>
+        <p class="org">PaGamO 線上遊戲學習平台</p>
+        <p class="lead">一邊玩搶領土遊戲，一邊練跨領域閱讀素養。</p>
+        <div class="tags"><span class="tag">閱讀素養</span><span class="tag">搶領土遊戲</span><span class="tag">中高年級</span></div>
+        <dl class="facts">
+          <dt>登入</dt><dd>用縣市帳號登入</dd>
+          <dt>裝置</dt><dd>電腦、平板</dd>
+        </dl>
+        <p class="tip"><b>小提醒：</b>遊戲很好玩，建議和孩子約好每次玩多久。</p>
+        <div class="btns"><a class="btn" href="https://www.pagamo.org/" target="_blank" rel="noopener">前往網站 →</a></div>
+      </article>
+
+      <!-- 5 均一 -->
+      <article class="book k5" data-f="quiz teacher">
+        <span class="ribbon" aria-hidden="true"></span>
+        <div class="num">05</div>
+        <h3>均一教育平台</h3>
+        <p class="org">均一平台教育基金會</p>
+        <p class="lead">語文閱讀素養練習，搭配引導影片，在家也能自學。</p>
+        <div class="tags"><span class="tag">素養練習</span><span class="tag">教學影片</span><span class="tag">免費</span></div>
+        <dl class="facts">
+          <dt>登入</dt><dd>免費註冊，可選老師、學生、家長身分</dd>
+          <dt>裝置</dt><dd>電腦、平板、手機</dd>
+        </dl>
+        <p class="tip"><b>老師、家長：</b>可以指派任務給孩子，從紀錄看出學習狀況。</p>
+        <div class="btns"><a class="btn" href="https://www.junyiacademy.org/" target="_blank" rel="noopener">前往網站 →</a></div>
+      </article>
+
+      <!-- 6 兒童文化館 -->
+      <article class="book k6" data-f="book">
+        <span class="ribbon" aria-hidden="true"></span>
+        <div class="num">06</div>
+        <h3>兒童文化館</h3>
+        <p class="org">文化部</p>
+        <p class="lead">豐富的動畫繪本和語音故事，打開就能聽、就能看。</p>
+        <div class="tags"><span class="tag">動畫繪本</span><span class="tag">語音故事</span><span class="tag">低年級最愛</span></div>
+        <dl class="facts">
+          <dt>登入</dt><dd>不用登入，直接觀看</dd>
+          <dt>裝置</dt><dd>手機、平板、電腦都可以</dd>
+        </dl>
+        <p class="tip"><b>睡前好幫手：</b>選一本語音故事，親子一起聽。</p>
+        <div class="btns"><a class="btn" href="https://children.moc.gov.tw/" target="_blank" rel="noopener">前往網站 →</a></div>
+      </article>
+
+      <!-- 7 圓夢繪本 -->
+      <article class="book k7" data-f="book">
+        <span class="ribbon" aria-hidden="true"></span>
+        <div class="num">07</div>
+        <h3>圓夢繪本網</h3>
+        <p class="org">國立公共資訊圖書館</p>
+        <p class="lead">收錄許多原創和特色繪本，很多是小朋友和老師自己畫的作品。</p>
+        <div class="tags"><span class="tag">原創繪本</span><span class="tag">免費閱讀</span><span class="tag">各年級</span></div>
+        <dl class="facts">
+          <dt>登入</dt><dd>不用登入，直接閱讀</dd>
+          <dt>裝置</dt><dd>手機、平板、電腦都可以</dd>
+        </dl>
+        <p class="tip"><b>創作靈感：</b>看看別的小朋友怎麼畫繪本，自己也來試試！</p>
+        <div class="btns"><a class="btn" href="https://storybook.nlpi.edu.tw/" target="_blank" rel="noopener">前往網站 →</a></div>
+      </article>
+
+      <!-- 8 愛的書庫 -->
+      <article class="book k8" data-f="teacher">
+        <span class="ribbon" aria-hidden="true"></span>
+        <div class="num">08</div>
+        <h3>愛的書庫</h3>
+        <p class="org">財團法人台灣閱讀文化基金會</p>
+        <p class="lead">實體書箱借閱，加上線上閱讀教案，班級共讀好幫手。</p>
+        <div class="tags"><span class="tag">書箱借閱</span><span class="tag">閱讀教案</span><span class="tag">老師適用</span></div>
+        <dl class="facts">
+          <dt>適合</dt><dd>老師、閱讀推動人員</dd>
+          <dt>用法</dt><dd>上網查書箱、預約借閱、下載教案</dd>
+        </dl>
+        <p class="tip"><b>老師看這裡：</b>一箱同一本書，全班一起讀，討論起來更熱鬧。</p>
+        <div class="btns"><a class="btn" href="https://www.twnread.org.tw/" target="_blank" rel="noopener">前往網站 →</a></div>
+      </article>
+
+    </div>
+    <p class="empty" id="empty">這個分類目前沒有網站。</p>
+  </section>
+
+  <!-- 年級書單 -->
+  <section id="grades">
+    <div class="sec-head">
+      <span class="no">第二章</span>
+      <h2>依年級怎麼挑？</h2>
+      <p>給家長的建議組合</p>
+    </div>
+    <div class="grades">
+      <div class="grade k6" data-big="低">
+        <h4>一、二年級：愛上故事</h4>
+        <p>先培養「喜歡聽、喜歡看」的習慣</p>
+        <ul>
+          <li><a href="https://children.moc.gov.tw/" target="_blank" rel="noopener">兒童文化館</a>　<span>動畫繪本、聽故事</span></li>
+          <li><a href="https://storybook.nlpi.edu.tw/" target="_blank" rel="noopener">圓夢繪本網</a>　<span>原創繪本</span></li>
+          <li><a href="https://www.parents.com.tw/elifer" target="_blank" rel="noopener">瓜瓜漂流島</a>　<span>親子一起認證</span></li>
+        </ul>
+      </div>
+      <div class="grade k3" data-big="中">
+        <h4>三、四年級：讀得多、讀得懂</h4>
+        <p>開始自己讀文章、累積閱讀量</p>
+        <ul>
+          <li><a href="https://mdnereading.mdnkids.com/" target="_blank" rel="noopener">國語日報 雲閱讀</a>　<span>每天一篇</span></li>
+          <li><a href="https://www.parents.com.tw/elifer" target="_blank" rel="noopener">瓜瓜漂流島</a>　<span>閱讀認證</span></li>
+          <li><a href="https://www.junyiacademy.org/" target="_blank" rel="noopener">均一教育平台</a>　<span>素養練習</span></li>
+        </ul>
+      </div>
+      <div class="grade k1" data-big="高">
+        <h4>五、六年級：會想、會找、會寫</h4>
+        <p>練習找資料、判斷和表達</p>
+        <ul>
+          <li><a href="https://eliteracy.twnread.org.tw/" target="_blank" rel="noopener">數位讀寫網</a>　<span>理解與測驗</span></li>
+          <li><a href="https://www.pagamo.org/" target="_blank" rel="noopener">PaGamO 素養品學堂</a>　<span>跨領域素養</span></li>
+          <li><a href="https://mdnereading.mdnkids.com/" target="_blank" rel="noopener">國語日報 雲閱讀</a>　<span>時事科普</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 登入小幫手 -->
+  <section id="login">
+    <div class="sec-head">
+      <span class="no">第三章</span>
+      <h2>登入小幫手</h2>
+    </div>
+    <div class="notebook">
+      <h3>忘記帳號密碼怎麼辦？</h3>
+      <ol>
+        <li>PaGamO、雲閱讀（在家時）都用「縣市帳號」登入，忘記帳號請問級任老師。</li>
+        <li>雲閱讀在學校用校內網路，不用帳號密碼就能看。</li>
+        <li>兒童文化館、圓夢繪本網不用登入，打開就能看。</li>
+        <li>縣市帳號也可到 <a href="https://www.sso.edu.tw/" target="_blank" rel="noopener">教育體系單一簽入服務</a> 查詢。</li>
+        <li>還是登不進去？請聯絡炎峰國小教務處。</li>
+      </ol>
+      <p class="note">小提醒：帳號密碼請由家長保管，不要在網路上分享給別人喔。</p>
+    </div>
+  </section>
+
+  <p class="quote">一本書是一扇窗，<br>每天打開一點點，世界就大一點點。<small>— 炎峰國小 閱讀推廣 —</small></p>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>炎峰國民小學　閱讀大補帖｜資料整理：2026 年 11 月</p>
+    <p>各網站的內容與登入方式以官方網站公告為準；若發現連結失效，請告訴教務處。</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var chips = document.querySelectorAll('.chip');
+  var books = document.querySelectorAll('.book');
+  var empty = document.getElementById('empty');
+  function apply(f){
+    var shown = 0;
+    books.forEach(function(b){
+      var ok = f === 'all' || (' ' + b.dataset.f + ' ').indexOf(' ' + f + ' ') > -1;
+      b.hidden = !ok; if(ok) shown++;
+    });
+    empty.style.display = shown ? 'none' : 'block';
+    chips.forEach(function(c){ c.setAttribute('aria-pressed', c.dataset.f === f ? 'true' : 'false'); });
+  }
+  chips.forEach(function(c){ c.addEventListener('click', function(){ apply(c.dataset.f); }); });
+})();
+</script>
+</body>
+</html>

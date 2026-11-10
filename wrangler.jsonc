@@ -1,0 +1,8 @@
+{
+  // 炎峰國小 閱讀大補帖（只有固定網頁，不存任何資料）
+  "name": "yanfeng-reading",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./public"
+  }
+}
